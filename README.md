@@ -10,7 +10,7 @@ Let's take a look at our app, it's a simple online ordering web page to order fr
 
 ![Pizza Shop](assets/images/app-whole.png)
 
-But it's missing functionality! To help make this app functional we're going to add the cart functionality. When a user clicks on the `Add to cart`, the cart should update it's total items and total amount to reflect
+But it's missing functionality! To help make this app functional we're going to add the cart functionality. When a user clicks on the `Add to cart`, the cart should update its total items and total amount to reflect this to the user
 
 #### **Prerequisites**
 
@@ -26,7 +26,7 @@ But it's missing functionality! To help make this app functional we're going to 
 - After creating your `.js` file (or your `<script>` tag), make sure it's working correctly by adding an `alert("Pizza on the way!")` to the file and refreshing the page, did the alert show up?
 - Let's start thinking of ways to connect the dots, assume a user clicks on `Add to cart` on the `Classic` pizza card. The cart should look something like this:
 
-<img src="assets/images/cart-updated.png" style="height: 5rem;margin-left: 3rem" />
+<img src="assets/images/cart-updated.png" style="height: 5rem;padding-left: 2rem" />
 
 - Think of the challenge in terms of _events_. When a user **clicks** on a button, what's the event currently happening? How can we handle this event? What Javascript functionality is used to handle events?
 
@@ -38,7 +38,7 @@ But it's missing functionality! To help make this app functional we're going to 
 
 - Create a pull request from your branch `feature/cart` to the `main` branch
 
-- Notify your mentor!
+- Notify your mentor when done!
 
 #### **Advanced Requirements**
 
