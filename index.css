@@ -1,0 +1,69 @@
+@font-face {
+  font-family: "Satisfy";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/satisfy/v11/rP2Hp2yn6lkG50LoCZOIHTWEBlw.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+body {
+  background-color: #fafafa;
+}
+.card-image {
+  height: 290px;
+  object-fit: cover;
+  transition: transform 200ms ease-in-out;
+}
+.card-image:hover {
+  transform: scale(1.1);
+}
+.font-lobster {
+  font-family: "Lobster Two", cursive;
+}
+.font-satisfy {
+  font-family: "Satisfy";
+}
+.cart-total {
+  position: fixed;
+  bottom: 3rem;
+  right: 5rem;
+  background-color: #0d6efd;
+  color: white;
+  width: 3rem;
+  height: 3rem;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  transition: background-color 200ms ease-in-out;
+}
+.cart-total:hover {
+  background-color: #0b5ed7;
+}
+.cart-total:active {
+  background-color: #0748aa;
+}
+.total-items-badge {
+  position: absolute;
+  width: 24px;
+  top: -4px;
+  right: -8px;
+  background-color: inherit;
+  border-radius: 50%;
+}
+.cart-total-amount {
+  position: absolute;
+  bottom: -1.5rem;
+  background-color: inherit;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  width: inherit;
+  padding: 0px 10px 4px 10px;
+  display: inline-flex;
+  border-top: solid 1px transparent;
+}
