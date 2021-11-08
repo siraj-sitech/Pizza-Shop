@@ -29,11 +29,11 @@ body {
 .cart-total {
   position: fixed;
   bottom: 3rem;
-  right: 5rem;
+  right: calc(0.7rem + 4vw);
   background-color: #0d6efd;
   color: white;
-  width: 3rem;
-  height: 3rem;
+  width: 5rem;
+  height: 5rem;
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
   display: flex;
@@ -50,9 +50,10 @@ body {
 }
 .total-items-badge {
   position: absolute;
-  width: 24px;
-  top: -4px;
-  right: -8px;
+  min-width: 45px;
+  top: -1rem;
+  right: -1rem;
+  padding: 10px;
   background-color: inherit;
   border-radius: 50%;
 }
@@ -65,5 +66,10 @@ body {
   width: inherit;
   padding: 0px 10px 4px 10px;
   display: inline-flex;
-  border-top: solid 1px transparent;
+  justify-content: center;
+  border-top: solid 1px white;
+}
+
+#cart-modal-form:invalid #cart-modal-submit {
+  pointer-events: none;
 }
