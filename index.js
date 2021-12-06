@@ -1,49 +1,53 @@
-const cart = document.querySelectorAll('.row .btn');
+const addToCart = document.querySelectorAll('.row .btn');
+const cart = document.querySelector('.cart-total');
 const pizza = [
     {
-        name: 'top-classicPizza',
-        type: 'classic',
+        name: 'Classic Pizza',
+        type: 'top-classic',
         price: 13.95,
         inCart: 0
     },
     {
-        name: 'top-pestoPizza',
-        type: 'pesto',
+        name: 'Pesto Pizza',
+        type: 'top-pesto',
         price: 17.95,
         inCart: 0
     },
     {
-        name: 'top-margheritaPizza',
-        type: 'margherita',
+        name: 'Margherita Pizza',
+        type: 'top-margherita',
         price: 15.95,
         inCart: 0    // tracing cart
     },
     {
-        name: 'menu-pestoPizza',
-        type: 'pesto',
+        name: 'Pesto Pizza',
+        type: 'menu-pesto',
         price: 17.95,
         inCart: 0
     },
     {
-        name: 'menu-margheritaPizza',
+        name: 'MargheritaPizza',
         price: 15.95,
-        type: 'margherita',
+        type: 'menu-margherita',
         inCart: 0
     },
     {
-        name: 'menu-classicPizza',
+        name: 'Classic Pizza',
         price: 13.95,
-        type: 'classic',
+        type: 'menu-classic',
         inCart: 0    // tracing cart
     }
 ];
 
-for (let i = 0; i < cart.length; i++) {
-    cart[i].addEventListener('click', () => {
+
+for (let i = 0; i < addToCart.length; i++) {
+    addToCart[i].addEventListener('click', () => {
         cartItems(pizza[i]);
         totalCost(pizza[i]);
     })
 }
+
+cart.addEventListener('click', displayCart);
 
 function onLoadCartNum() {
     let pizzaNums = localStorage.getItem('cartItems');
@@ -116,6 +120,37 @@ function totalCost(pizza) {
         document.querySelector('.cart-total-amount .ms-1').textContent = cart + pizza.price;
     }
 }
+
+
+function displayCart() {
+    let total = localStorage.getItem("total");
+    let cart = localStorage.getItem('pizzaInCart');
+    let container = document.querySelector('.cart-modal-items');
+    let totalSpan = document.querySelector('.text-end span');
+
+    cart = JSON.parse(cart);
+
+    if (cart) {
+        container.innerHTML = '';
+        Object.values(cart).map(item => {
+            container.innerHTML += `
+            <div class="cart-modal-item d-flex align-items-center">
+                  <span class="fw-bold">${item.name}</span>
+                  <div class="ms-auto">
+                    <button type="button" class="btn btn-light">+</button>
+                    <input required="" value="${item.inCart}" placeholder="1" size="2" class="text-center border border-light">
+                    <button type="button" class="btn btn-light">-</button>
+                  </div>
+                </div><br>
+            `;
+        });
+        totalSpan.textContent = "$" + total;
+    } else {
+        container.innerHTML = '';
+        totalSpan.textContent = "$" + 0;
+    }
+}
+
 
 onLoadTotal();
 onLoadCartNum();
