@@ -51,6 +51,15 @@ function onLoadCartNum() {
     if (pizzaNums) {                         //tracing cart items and not losing it after refresh
 
         document.querySelector('.total-items-badge').textContent = pizzaNums;
+      }
+    }
+
+function onLoadTotal(){
+    let totalPizza = localStorage.getItem('total');
+
+    if(totalPizza)
+    {
+         document.querySelector('.cart-total-amount .ms-1').textContent = totalPizza;
     }
 }
 
@@ -101,13 +110,15 @@ function totalCost(pizza) {
     if (cart != null) {
         cart = parseFloat(cart);
         localStorage.setItem("total", (cart + pizza.price).toFixed(2));
-           document.querySelector('.cart-total-amount').textContent = (cart+pizza.price).toFixed(2);
+           document.querySelector('.cart-total-amount .ms-1').textContent = (cart+pizza.price).toFixed(2);
 
     } else {
         localStorage.setItem("total", pizza.price);
-        document.querySelector('.cart-total-amount').textContent = cart+pizza.price;
+        document.querySelector('.cart-total-amount .ms-1').textContent = cart+pizza.price;
     }
 }
-
+onLoadTotal();
 onLoadCartNum();
+
+
 
