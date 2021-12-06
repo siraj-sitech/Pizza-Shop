@@ -51,17 +51,16 @@ function onLoadCartNum() {
     if (pizzaNums) {                         //tracing cart items and not losing it after refresh
 
         document.querySelector('.total-items-badge').textContent = pizzaNums;
-      }
     }
+} //doesnt lose items on refresh.
 
-function onLoadTotal(){
+function onLoadTotal() {
     let totalPizza = localStorage.getItem('total');
 
-    if(totalPizza)
-    {
-         document.querySelector('.cart-total-amount .ms-1').textContent = totalPizza;
+    if (totalPizza) {
+        document.querySelector('.cart-total-amount .ms-1').textContent = totalPizza;
     }
-}
+} // doesnt lose total on refresh.
 
 function cartItems(pizza) {
 
@@ -79,7 +78,7 @@ function cartItems(pizza) {
         document.querySelector('.total-items-badge').textContent = 1; // set counter 1 to be first item
     }
     setItems(pizza);
-}
+} // counting how many items in cart.
 
 function setItems(pizza) {
     let cartItems = localStorage.getItem('pizzaInCart');
@@ -102,7 +101,7 @@ function setItems(pizza) {
         }
     }
     localStorage.setItem("pizzaInCart", JSON.stringify(cartItems));
-}
+} // checking for existing items in cart and no overwriting.
 
 function totalCost(pizza) {
     let cart = localStorage.getItem('total');
@@ -110,13 +109,14 @@ function totalCost(pizza) {
     if (cart != null) {
         cart = parseFloat(cart);
         localStorage.setItem("total", (cart + pizza.price).toFixed(2));
-           document.querySelector('.cart-total-amount .ms-1').textContent = (cart+pizza.price).toFixed(2);
+        document.querySelector('.cart-total-amount .ms-1').textContent = (cart + pizza.price).toFixed(2);
 
     } else {
         localStorage.setItem("total", pizza.price);
-        document.querySelector('.cart-total-amount .ms-1').textContent = cart+pizza.price;
+        document.querySelector('.cart-total-amount .ms-1').textContent = cart + pizza.price;
     }
 }
+
 onLoadTotal();
 onLoadCartNum();
 
