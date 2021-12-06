@@ -2,7 +2,7 @@ const cart = document.querySelectorAll('.row .btn');
 const pizza = [
     {
         name: 'top-classicPizza',
-        type: 'margherita',
+        type: 'classic',
         price: 13.95,
         inCart: 0
     },
@@ -41,6 +41,7 @@ const pizza = [
 for (let i = 0; i < cart.length; i++) {
     cart[i].addEventListener('click', () => {
         cartItems(pizza[i]);
+        totalCost(pizza[i]);
     })
 }
 
@@ -63,10 +64,10 @@ function cartItems(pizza) {
         localStorage.setItem('cartItems', pizzaNums + 1); /* when add to cart is clicked value will be +1
                                                            if it's in local storage*/
 
-        document.querySelector('.total-items-badge').textContent = pizzaNums + 1;
+        document.querySelector('.total-items-badge').textContent = pizzaNums + 1; // increase counter on cart
     } else {
         localStorage.setItem('cartItems', 1);
-        document.querySelector('.total-items-badge').textContent = 1;
+        document.querySelector('.total-items-badge').textContent = 1; // set counter 1 to be first item
     }
     setItems(pizza);
 }
@@ -84,7 +85,7 @@ function setItems(pizza) {
 
         }
         cartItems[pizza.type].inCart += 1;
-      
+
     } else {
         pizza.inCart = 1;
         cartItems = {
@@ -92,6 +93,17 @@ function setItems(pizza) {
         }
     }
     localStorage.setItem("pizzaInCart", JSON.stringify(cartItems));
+}
+
+function totalCost(pizza) {
+    let cart = localStorage.getItem('total');
+
+    if (cart != null) {
+        cart = parseFloat(cart);
+        localStorage.setItem("total", (cart + pizza.price).toFixed(2));
+    } else {
+        localStorage.setItem("total", pizza.price);
+    }
 }
 
 onLoadCartNum();
