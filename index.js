@@ -1,40 +1,41 @@
 const addToCart = document.querySelectorAll('.row .btn');
 const cart = document.querySelector('.cart-total');
+
 const pizza = [
     {
         name: 'Classic Pizza',
-        type: 'top-classic',
+        type: 'classic',
         price: 13.95,
         inCart: 0
     },
     {
         name: 'Pesto Pizza',
-        type: 'top-pesto',
+        type: 'pesto',
         price: 17.95,
         inCart: 0
     },
     {
         name: 'Margherita Pizza',
-        type: 'top-margherita',
+        type: 'margherita',
         price: 15.95,
         inCart: 0    // tracing cart
     },
     {
         name: 'Pesto Pizza',
-        type: 'menu-pesto',
+        type: 'pesto',
         price: 17.95,
         inCart: 0
     },
     {
         name: 'MargheritaPizza',
         price: 15.95,
-        type: 'menu-margherita',
+        type: 'margherita',
         inCart: 0
     },
     {
         name: 'Classic Pizza',
         price: 13.95,
-        type: 'menu-classic',
+        type: 'classic',
         inCart: 0    // tracing cart
     }
 ];
@@ -123,22 +124,23 @@ function totalCost(pizza) {
 
 
 function displayCart() {
-    let total = localStorage.getItem("total");
-    let cart = localStorage.getItem('pizzaInCart');
-    let container = document.querySelector('.cart-modal-items');
-    let totalSpan = document.querySelector('.text-end span');
+    let total = localStorage.getItem("total"); // get total from local storage
+    let cart = localStorage.getItem('pizzaInCart'); // get items from local storage
+    let container = document.querySelector('.cart-modal-items'); //selecting container to add new items
+    let totalSpan = document.querySelector('.text-end span'); // for total amount
 
-    cart = JSON.parse(cart);
+
+    cart = JSON.parse(cart); // parsing the objects bc it returns as a string
 
     if (cart) {
         container.innerHTML = '';
-        Object.values(cart).map(item => {
+        Object.values(cart).map(item => { // Mapping through the objects in local cart
             container.innerHTML += `
             <div class="cart-modal-item d-flex align-items-center">
                   <span class="fw-bold">${item.name}</span>
                   <div class="ms-auto">
                     <button type="button" class="btn btn-light">+</button>
-                    <input required="" value="${item.inCart}" placeholder="1" size="2" class="text-center border border-light">
+                    <input required value="${item.inCart}" placeholder="1" size="2" class="text-center border border-light">
                     <button type="button" class="btn btn-light">-</button>
                   </div>
                 </div><br>
@@ -150,7 +152,6 @@ function displayCart() {
         totalSpan.textContent = "$" + 0;
     }
 }
-
 
 onLoadTotal();
 onLoadCartNum();
