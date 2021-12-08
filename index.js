@@ -6,28 +6,24 @@ const pizza = [
     {
         id: 1,
         name: 'Classic Pizza',
-        type: 'classic',
         price: 13.95,
         inCart: 0
     },
     {
         id: 2,
         name: 'Pesto Pizza',
-        type: 'pesto',
         price: 17.95,
         inCart: 0
     },
     {
         id: 3,
         name: 'Margherita Pizza',
-        type: 'margherita',
         price: 15.95,
         inCart: 0    // tracing cart
     },
     {
         id: 2,
         name: 'Pesto Pizza',
-        type: 'pesto',
         price: 17.95,
         inCart: 0
     },
@@ -35,14 +31,12 @@ const pizza = [
         id: 3,
         name: 'Margherita Pizza',
         price: 15.95,
-        type: 'margherita',
         inCart: 0
     },
     {
         id: 1,
         name: 'Classic Pizza',
         price: 13.95,
-        type: 'classic',
         inCart: 0    // tracing cart
     }
 ];
@@ -161,50 +155,49 @@ function displayCart() {
         totalSpan.textContent = "$" + 0;
     }
 }
-function addItem(id,price)
-{
+
+function addItem(id, price) {
     let total = localStorage.getItem('total');
     let cart = localStorage.getItem("pizzaInCart");
     cart = JSON.parse(cart);
-    total=parseFloat(total);
+    total = parseFloat(total);
 
-    let pizzaCount =  cart[id].inCart += 1;
-    let pizzaTotal = price+total;
+    let pizzaCount = cart[id].inCart += 1;
+    let pizzaTotal = price + total;
 
     cartItems(id);
     document.getElementById(id).value = pizzaCount;
 
     localStorage.setItem("pizzaInCart", JSON.stringify(cart));
-    localStorage.setItem("total",pizzaTotal.toFixed(2));
+    localStorage.setItem("total", pizzaTotal.toFixed(2));
     onLoadTotal();// updating cart total after adding
     displayCart();//updating total inside cart after adding
 }
 
-function rmvItem(id,price)
-{
+function rmvItem(id, price) {
     let total = localStorage.getItem('total');
     let cart = localStorage.getItem("pizzaInCart");
     let items = localStorage.getItem("cartItems");
     cart = JSON.parse(cart);
-    total=parseFloat(total);
+    total = parseFloat(total);
 
-    let pizzaCount =  cart[id].inCart -= 1;
-    let pizzaTotal = total-price;
+    let pizzaCount = cart[id].inCart -= 1;
+    let pizzaTotal = total - price;
 
 
-    document.getElementById(id).value=pizzaCount;
+    document.getElementById(id).value = pizzaCount;
     items--;
-    if(cart[id].inCart == 0)
-    {
+    if (cart[id].inCart == 0) {
         delete cart[id];
     }
 
-    localStorage.setItem("pizzaInCart",JSON.stringify(cart));
-    localStorage.setItem("cartItems",items);
-    localStorage.setItem("total",pizzaTotal.toFixed(2));
+    localStorage.setItem("pizzaInCart", JSON.stringify(cart));
+    localStorage.setItem("cartItems", items);
+    localStorage.setItem("total", pizzaTotal.toFixed(2));
 
-    onLoadTotal();
-    displayCart();
+    onLoadTotal();// updating cart total after removing
+    displayCart(); // updating div after removing
+    onLoadCartNum(); // updating total inside the cart
 }
 
 onLoadTotal();
