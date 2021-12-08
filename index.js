@@ -1,38 +1,45 @@
 const addToCart = document.querySelectorAll('.row .btn');
 const cart = document.querySelector('.cart-total');
 
+
 const pizza = [
     {
+        id: 1,
         name: 'Classic Pizza',
         type: 'classic',
         price: 13.95,
         inCart: 0
     },
     {
+        id: 2,
         name: 'Pesto Pizza',
         type: 'pesto',
         price: 17.95,
         inCart: 0
     },
     {
+        id: 3,
         name: 'Margherita Pizza',
         type: 'margherita',
         price: 15.95,
         inCart: 0    // tracing cart
     },
     {
+        id: 2,
         name: 'Pesto Pizza',
         type: 'pesto',
         price: 17.95,
         inCart: 0
     },
     {
-        name: 'MargheritaPizza',
+        id: 3,
+        name: 'Margherita Pizza',
         price: 15.95,
         type: 'margherita',
         inCart: 0
     },
     {
+        id: 1,
         name: 'Classic Pizza',
         price: 13.95,
         type: 'classic',
@@ -49,6 +56,7 @@ for (let i = 0; i < addToCart.length; i++) {
 }
 
 cart.addEventListener('click', displayCart);
+
 
 function onLoadCartNum() {
     let pizzaNums = localStorage.getItem('cartItems');
@@ -90,19 +98,18 @@ function setItems(pizza) {
     cartItems = JSON.parse(cartItems);
 
     if (cartItems != null) {
-        if (cartItems[pizza.type] == undefined) {
+        if (cartItems[pizza.id] == undefined) {
             cartItems = {
                 ...cartItems,
-                [pizza.type]: pizza
+                [pizza.id]: pizza
             }
-
         }
-        cartItems[pizza.type].inCart += 1;
+        cartItems[pizza.id].inCart += 1;
 
     } else {
         pizza.inCart = 1;
         cartItems = {
-            [pizza.type]: pizza
+            [pizza.id]: pizza
         }
     }
     localStorage.setItem("pizzaInCart", JSON.stringify(cartItems));
@@ -139,18 +146,63 @@ function displayCart() {
             <div class="cart-modal-item d-flex align-items-center">
                   <span class="fw-bold">${item.name}</span>
                   <div class="ms-auto">
-                    <button type="button" class="btn btn-light">+</button>
-                    <input required value="${item.inCart}" placeholder="1" size="2" class="text-center border border-light">
-                    <button type="button" class="btn btn-light">-</button>
+                    <button type="button" class="btn btn-light" onclick="addItem(${item.id},${item.price})">+</button>
+                    <input required value="${item.inCart}" placeholder="1" size="2" class="text-center border border-light" id="${item.id}">
+                    <button type="button" class="btn btn-light" onclick="rmvItem(${item.id},${item.price})">-</button>
                   </div>
                 </div><br>
             `;
         });
+
         totalSpan.textContent = "$" + total;
+
     } else {
         container.innerHTML = '';
         totalSpan.textContent = "$" + 0;
     }
+}
+function addItem(id,price)
+{
+    let total = localStorage.getItem('total');
+    let cart = localStorage.getItem("pizzaInCart");
+    cart = JSON.parse(cart);
+    total=parseFloat(total);
+
+    let pizzaCount =  cart[id].inCart += 1;
+    let pizzaTotal = price+total;
+
+    cartItems(id);
+    document.getElementById(id).value = pizzaCount;
+
+    localStorage.setItem("pizzaInCart", JSON.stringify(cart));
+    localStorage.setItem("total",pizzaTotal.toFixed(2));
+    onLoadTotal();// updating cart total after adding
+    displayCart();//updating total inside cart after adding
+}
+
+function rmvItem(id,price)
+{
+    let total = localStorage.getItem('total');
+    let cart = localStorage.getItem("pizzaInCart");
+    let items = localStorage.getItem("cartItems");
+    cart = JSON.parse(cart);
+    total=parseFloat(total);
+
+    let pizzaCount =  cart[id].inCart -= 1;
+    let pizzaTotal = total-price;
+
+    document.getElementById(id).value=pizzaCount;
+    items--;
+    if(id.inCart == 0)
+    {
+        localStorage.removeItem(id);
+    }
+    debugger;
+    localStorage.setItem("pizzaInCart",JSON.stringify(cart));
+    localStorage.setItem("cartItems",items);
+    localStorage.setItem("total",pizzaTotal.toFixed(2));
+    onLoadTotal();
+    displayCart();
 }
 
 onLoadTotal();
