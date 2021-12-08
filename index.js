@@ -191,16 +191,18 @@ function rmvItem(id,price)
     let pizzaCount =  cart[id].inCart -= 1;
     let pizzaTotal = total-price;
 
+
     document.getElementById(id).value=pizzaCount;
     items--;
-    if(id.inCart == 0)
+    if(cart[id].inCart == 0)
     {
-        localStorage.removeItem(id);
+        delete cart[id];
     }
-    debugger;
+
     localStorage.setItem("pizzaInCart",JSON.stringify(cart));
     localStorage.setItem("cartItems",items);
     localStorage.setItem("total",pizzaTotal.toFixed(2));
+
     onLoadTotal();
     displayCart();
 }
